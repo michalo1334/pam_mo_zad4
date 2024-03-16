@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
+
 abstract class Expression {
   Expression copy();
 
@@ -138,12 +140,12 @@ class FunctionExpr extends Expression {
 
   @override
   Expression repeatedLeftMost() {
-    return FunctionExpr([this, ...args]..removeAt(0), op);
+    return FunctionExpr([copy(), ...args]..removeAt(1), op);
   }
 
   @override
   Expression simplifiedLeftMost() {
-    return FunctionExpr([Value(args[0].eval()), ...args]..removeAt(1), op);
+    return FunctionExpr(args.map((e) => Value(e.eval())).toList(), op);
   }
 
   @override
@@ -154,13 +156,14 @@ class FunctionExpr extends Expression {
       '${op.name}(${args.map((e) => e.toString()).join(', ')})';
 
   @override
-  String prettyPrint() => toString();
+  String prettyPrint() =>
+      '${op.name}(${args.map((e) => e.prettyPrint()).join(', ')})';
 }
 
 class Op {
   final String name;
   late final Function op;
-  final int arity;
+  late final int arity;
 
   Op(this.name, this.op, this.arity);
 
@@ -168,14 +171,26 @@ class Op {
       : name = char,
         arity = 2 {
     op = switch (char) {
-      '+' => (vs) => vs[0] + vs[1],
-      '-' => (vs) => vs[0] - vs[1],
-      '*' => (vs) => vs[0] * vs[1],
-      '/' => (vs) => vs[0] / vs[1],
-      '^' => (vs) => pow(vs[0], vs[1]),
-      _ => (vs) => throw UnimplementedError(),
+      '+' => (args) => args[0] + args[1],
+      '-' => (args) => args[0] - args[1],
+      '*' => (args) => args[0] * args[1],
+      '/' => (args) => args[0] / args[1],
+      '^' => (args) => pow(args[0], args[1]),
+      _ => (args) => throw UnimplementedError(),
     };
   }
+
+  Op.function(String fnName)
+    : name = fnName {
+    switch(fnName) {
+      case "sqrt(":
+        op = (args) => sqrt(args[0]);
+        arity = 1;
+      case _:
+        throw UnimplementedError();
+    }
+  }
+
 
   double invoke(List<double> args) => op(args);
 }
