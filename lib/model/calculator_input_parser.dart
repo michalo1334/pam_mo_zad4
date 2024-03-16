@@ -23,6 +23,13 @@ Parser calcInputParser() {
   );
 
   builder.group()
+    .wrapper(
+      string('sqrt(').trim(),
+      string(')').trim(),
+          (left, value, right) => FunctionExpr([value], Op.function(left))
+  );
+
+  builder.group()
     .right(char('^').trim(), (a, op, b) => BinaryOp(a, b, Op.operator(op)));
   builder.group()
     .left((char('*') | char('/')).trim(), (a, op, b) => BinaryOp(a, b, Op.operator(op)));
