@@ -24,7 +24,7 @@ class CalculatorButtonWidget extends StatelessWidget {
       margin: const EdgeInsets.all(4),
       child: Material(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: BorderRadius.circular(20),
         child: InkWell(
           onTap: onPressed,
           splashColor: Theme.of(context).splashColor,
@@ -45,7 +45,7 @@ class CalculatorButtonWidget extends StatelessWidget {
             text,
             style: TextStyle(
                 color: textColor,
-                fontSize: fontSize,
+                fontSize: 30,
                 fontWeight: FontWeight.bold
             ),
             maxLines: 1,

@@ -30,7 +30,7 @@ class _CalculatorHistoryWidgetState extends State<CalculatorHistoryWidget> {
         children: [
           Expanded(
             child: ListView(
-              children: _calc.history.map((e) => _buildListTile(e)).toList()
+              children: _calc.history.reversed.map((e) => _buildListTile(e)).toList()
             ),
           ),
           Align(alignment: Alignment.bottomRight, child: ElevatedButton(onPressed: () => setState(() => _calc.history.clear()), child: const Text("Usuń historię", style: TextStyle(fontSize: 24)))),

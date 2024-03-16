@@ -78,7 +78,7 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   Widget _buildLargeLayout() {
     return LayoutGrid(
       areas: gridTemplateLargeLayout,
-      columnSizes: [1.fr, 1.fr],
+      columnSizes: [1.fr, 2.fr],
       rowSizes: [
         1.fr,
         2.fr,
@@ -92,7 +92,7 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   }
 
   Widget _buildHistory() {
-    return Align(alignment: Alignment.centerLeft, child: Container(color: Colors.white, child: CalculatorHistoryWidget(initCalc: _calc)));
+    return Align(alignment: Alignment.centerRight, child: Container(color: Theme.of(context).colorScheme.background, child: CalculatorHistoryWidget(initCalc: _calc)));
   }
 
   Widget _buildDisplay() {
@@ -153,7 +153,7 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
                 _calc.backspace();
               });
             },
-            icon: const Icon(Icons.backspace)),
+            icon: const Icon(Icons.backspace, size: 40)),
       ],
     );
   }

@@ -18,11 +18,12 @@ class _CalculatorKeyboardWidgetState extends State<CalculatorKeyboardWidget> {
   late final Calculator _calc;
 
   final String gridTemplate = """
-      C   ()   X^a    /
-      7   8     9     x
-      4   5     6     -
-      1   2     3     +
-      +/- 0     .     =
+      C   ()    √     -
+      Num /     x     -
+      7   8     9     +
+      4   5     6     +
+      1   2     3     Ent
+      0   0     ,     Ent
       r2 r8     r10   r16
       """;
 
@@ -36,7 +37,7 @@ class _CalculatorKeyboardWidgetState extends State<CalculatorKeyboardWidget> {
       "()": () => setState(() {
             _calc.appendParenthesis();
           }),
-      "X^a": () => setState(() {
+      "Num": () => setState(() {
             _calc.appendOp("^");
           }),
       "/": () => setState(() {
@@ -78,14 +79,14 @@ class _CalculatorKeyboardWidgetState extends State<CalculatorKeyboardWidget> {
       "+": () => setState(() {
             _calc.appendOp("+");
           }),
-      "+/-": () => setState(() {}),
+      "√": () => setState(() {_calc.appendFunction("sqrt");}),
       "0": () => setState(() {
             _calc.appendDigit("0");
           }),
-      ".": () => setState(() {
+      ",": () => setState(() {
             _calc.appendDecimalSeparator();
           }),
-      "=": () => setState(() {_calc.accept();}),
+      "Ent": () => setState(() {_calc.accept();}),
       "r2": () => setState(() {_calc.currentRadix = 2;}),
       "r8": () => setState(() {_calc.currentRadix = 8;}),
       "r10": () => setState(() {_calc.currentRadix = 10;}),
@@ -102,12 +103,11 @@ class _CalculatorKeyboardWidgetState extends State<CalculatorKeyboardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-        aspectRatio: 1,
-        child: LayoutGrid(
-            columnSizes: [for (var i = 0; i < 4; i++) 1.fr],
-            rowSizes: [for (var i = 0; i < 6; i++) 1.fr],
-            children: _buildButtons(context)));
+    return LayoutGrid(
+        areas: gridTemplate,
+        columnSizes: [for (var i = 0; i < 4; i++) 1.fr],
+        rowSizes: [for (var i = 0; i < 7; i++) 1.fr],
+        children: _buildButtons(context));
   }
 
   List<Widget> _buildButtons(BuildContext context) {
@@ -118,7 +118,7 @@ class _CalculatorKeyboardWidgetState extends State<CalculatorKeyboardWidget> {
           text: name,
           textColor: tc,
           backgroundColor: bc,
-          onPressed: _buttonOps[name]!);
+          onPressed: _buttonOps[name]!).inGridArea(name);
     }).toList();
   }
 
