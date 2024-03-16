@@ -129,7 +129,7 @@ class _CalculatorKeyboardWidgetState extends State<CalculatorKeyboardWidget> {
       "r2" || "r8" || "r10" || "r16" => (cs.secondary, cs.onSecondary),
       "+" || "-" || "x" || "/" => (cs.inversePrimary, Colors.purple),
       "C" => (cs.inversePrimary, Colors.red),
-      "=" => (cs.primary, cs.onPrimary),
+      "Ent" => (cs.primary, cs.onPrimary),
       _ => (cs.inversePrimary, Colors.black)
     };
   }

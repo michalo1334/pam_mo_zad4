@@ -78,7 +78,7 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   Widget _buildLargeLayout() {
     return LayoutGrid(
       areas: gridTemplateLargeLayout,
-      columnSizes: [1.fr, 2.fr],
+      columnSizes: [1.5.fr, 1.fr],
       rowSizes: [
         1.fr,
         2.fr,
