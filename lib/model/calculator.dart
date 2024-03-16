@@ -122,6 +122,18 @@ class Calculator with ChangeNotifier {
     notifyListeners();
   }
 
+  void appendFunction(String fn) {
+    input += '$fn(';
+    numberBeingEntered = false;
+    decimalSeparatorEntered = false;
+
+    shouldClearInput = false;
+
+    evenNumberOfParenthesis = false;
+
+    notifyListeners();
+  }
+
   void clear() {
     input = '';
 
