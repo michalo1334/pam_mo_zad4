@@ -140,6 +140,8 @@ class Calculator with ChangeNotifier {
     numberBeingEntered = false;
     decimalSeparatorEntered = false;
 
+    history.clear();
+
     evenNumberOfParenthesis = true;
 
     notifyListeners();
